@@ -1,0 +1,31 @@
+{
+  "name": "markymark",
+  "version": "1.0.0",
+  "description": "Performance logger based on performance.mark() and measure()",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "rimraf dist lib && mkdirp dist lib && rollup -c && rollup -c rollup.config.cjs.js && uglifyjs -mc < dist/markymark.js > dist/markymark.min.js"
+  },
+  "keywords": [
+    "mark",
+    "measure",
+    "performance",
+    "user timing",
+    "timing",
+    "polyfill",
+    "stopwatch",
+    "timer"
+  ],
+  "author": "Nolan Lawson <nolan@nolanlawson.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.4",
+    "rollup": "^0.36.3",
+    "rollup-plugin-buble": "^0.14.0",
+    "uglify-js": "^2.7.4"
+  },
+  "files: ["src", "lib", "dist"]
+}
