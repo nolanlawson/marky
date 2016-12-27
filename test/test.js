@@ -48,7 +48,7 @@ describe('markymark', function () {
     return sleep(1000).then(() => {
       return markymark.end()
     }).then(res => {
-      assertBetween(res, 1000, 2000)
+      assertBetween(res, 950, 2000)
     })
   })
 
@@ -61,8 +61,8 @@ describe('markymark', function () {
       return sleep(1500).then(() => {
         return markymark.end()
       }).then(res2 => {
-        assertBetween(res1, 500, 1400)
-        assertBetween(res2, 1500, 2400)
+        assertBetween(res1, 450, 1400)
+        assertBetween(res2, 1450, 2400)
       })
     })
   })
@@ -75,8 +75,8 @@ describe('markymark', function () {
       return sleep(1500).then(() => {
         return Promise.all([promise1, markymark.end()])
       }).then(res => {
-        assertBetween(res[0], 500, 1400)
-        assertBetween(res[1], 1500, 2400)
+        assertBetween(res[0], 450, 1400)
+        assertBetween(res[1], 1450, 2400)
       })
     })
   })
