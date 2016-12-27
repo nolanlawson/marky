@@ -93,7 +93,7 @@ Asynchronous measurements
 markymark.start('manTheTorpedos');
 manTheTorpedos();
 markymark.end().then(function (duration) {
-  console.log('duration'); // duration in milliseconds
+  console.log(duration); // duration in milliseconds
 });
 ```
 
