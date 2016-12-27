@@ -47,3 +47,34 @@ Since this is a standard API, it also shows up in Edge and Windows Performance A
 
 These APIs are designed to have the minimum impact on app runtime performance and thus are safe to ship in production.
 (In fact, you should ship your measurements in production! Both Google and Bing already do this.)
+
+Not using Node/npm/Browserify/Webpack/etc.?
+---
+
+You can use Markymark as a script tag:
+```html
+<script src="https://unpkg.com/markymark/dist/markymark.min.js"></script>
+<script>
+markymark.start('expensive operation');
+doExpensiveOperation();
+markymark.end();
+</script>
+```
+
+Browser support
+----
+
+Markymark doesn't require ES6 syntax, but it does use `Promise` and `Map`. If your target environment doesn't support those,
+you'll need a polyfill. Or you can use:
+
+```js
+var markymark = require('markymark/with-polyfills');
+```
+
+Or as a script tag:
+
+```html
+<script src="https://unpkg.com/markymark/dist/markymark.with-polyfillsmin.js"></script>
+```
+
+Markymark supports the following browsers (with the Promise+Map polyfills):

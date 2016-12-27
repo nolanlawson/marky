@@ -1,3 +1,5 @@
+require('lie/polyfill')
+require('es6-map/polyfill')
 let assert = require('assert')
 let markymark = process.env.NODE_ENV === 'development' ?
   require('../src/index').default : require('../')
