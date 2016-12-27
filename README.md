@@ -117,6 +117,14 @@ Or as a script tag:
 <script src="https://unpkg.com/markymark/dist/markymark.with-polyfillsmin.js"></script>
 ```
 
-Markymark supports the following browsers (with the Promise+Map polyfills):
+Markymark is tested in the following browsers (with the Promise+Map polyfills):
 
-TODO: fill this out
+* IE 9+
+* Safari 8+
+* iOS 8+
+* Android 4.4+
+* Chrome
+* Firefox
+* Edge
+
+Node 4+ is supported.

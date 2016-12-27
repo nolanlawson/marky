@@ -17,7 +17,7 @@ browsers:
   - name: safari
     version: [8, 9]
   - name: ie
-    version: 8..latest
+    version: 9..latest
   - name: microsoftedge
     version: latest
   - name: iphone
