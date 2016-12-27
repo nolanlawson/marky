@@ -87,7 +87,7 @@ If you don't provide an argument to `end()`, it will use the name from the most 
 Asynchronous measurements
 ----
 
-`Markymark.end()` returns a `Promise` for the measurement of the duration:
+`markymark.end()` returns a `Promise` for the measurement of the duration:
 
 ```js
 markymark.start('manTheTorpedos');
