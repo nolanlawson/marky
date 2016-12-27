@@ -114,7 +114,7 @@ var markymark = require('markymark/with-polyfills');
 Or as a script tag:
 
 ```html
-<script src="https://unpkg.com/markymark/dist/markymark.with-polyfillsmin.js"></script>
+<script src="https://unpkg.com/markymark/dist/markymark.with-polyfills.min.js"></script>
 ```
 
 Markymark is tested in the following browsers (with the Promise+Map polyfills):
