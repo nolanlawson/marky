@@ -1,26 +1,27 @@
+/* global it, describe */
+
 require('lie/polyfill')
 require('es6-map/polyfill')
 let assert = require('assert')
-let markymark = process.env.NODE_ENV === 'development' ?
-  require('../src/index').default : require('../')
+let markymark = process.env.NODE_ENV === 'development' ? require('../src/index').default : require('../')
 
-function sleep(ms) {
+function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
-function assertGte(num1, num2) {
+function assertGte (num1, num2) {
   num1 = Math.round(num1)
   num2 = Math.round(num2)
   assert(num1 >= num2, `failed: ${num1} >= ${num2}`)
 }
 
-function assertLte(num1, num2) {
+function assertLte (num1, num2) {
   num1 = Math.round(num1)
   num2 = Math.round(num2)
   assert(num1 <= num2, `failed: ${num1} <= ${num2}`)
 }
 
-function assertBetween(num, num1, num2) {
+function assertBetween (num, num1, num2) {
   assertGte(num, num1)
   assertLte(num, num2)
 }

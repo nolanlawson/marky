@@ -4,3 +4,23 @@ browserify:
       name: babelify
       presets: es2015
   - transform: envify
+concurrency: 2
+tunnel:
+  type: ngrok
+browsers:
+  - name: chrome
+    version: latest
+  - name: firefox
+    version: latest
+  - name: safari
+    version: [8, 9]
+  - name: ie
+    version: 8..latest
+  - name: microsoftedge
+    version: latest
+  - name: iphone
+    version: 8.4
+  - name: ipad
+    version: 8.4
+  - name: android
+    version: [4.4, 5.1]

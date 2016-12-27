@@ -1,10 +1,10 @@
 let callback
 
-function onNewFakeEntry(cb) {
+function onNewFakeEntry (cb) {
   callback = cb
 }
 
-function newFakeEntry(name, duration) {
+function newFakeEntry (name, duration) {
   if (callback) {
     callback([{
       name: name,

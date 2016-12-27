@@ -1,4 +1,3 @@
-import now from './now'
 import observe from './observe'
 import { mark, measure } from './markMeasure'
 
@@ -7,14 +6,14 @@ let lastName
 
 class MarkyMark {
 
-  start(name) {
+  start (name) {
     lastName = name
     let promise = observe(name)
     promises.set(name, promise)
     mark('start ' + name)
   }
 
-  end(name) {
+  end (name) {
     name = name || lastName
     mark('end ' + name)
     measure(name, 'start ' + name, 'end ' + name)
