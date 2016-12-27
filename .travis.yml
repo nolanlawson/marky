@@ -9,6 +9,14 @@ env:
   matrix:
   - COMMAND=test
   - COMMAND=test-browser
+matrix:
+  include:
+    - node_js: "4"
+      services: docker
+      env: CLIENT=node COMMAND=test
+    - node_js: "7"
+      services: docker
+      env: CLIENT=node COMMAND=test
 branches:
   only:
   - master

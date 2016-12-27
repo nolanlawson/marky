@@ -4,6 +4,8 @@ browserify:
       name: babelify
       presets: es2015
   - transform: envify
+scripts:
+  - "node_modules/es6-shim/es6-shim.min.js"
 concurrency: 2
 tunnel:
   type: ngrok

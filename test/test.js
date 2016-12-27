@@ -1,9 +1,7 @@
 /* global it, describe */
 
-require('lie/polyfill')
-require('es6-map/polyfill')
 let assert = require('assert')
-let markymark = process.env.NODE_ENV === 'development' ? require('../src/index').default : require('../')
+let markymark = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -32,18 +30,16 @@ describe('markymark', function () {
   it('does a basic mark', () => {
     markymark.start('foo')
     return markymark.end().then(res => {
-      assert(res)
       assert(typeof res === 'number')
-      assert(res > 0)
+      assertGte(res, 0)
     })
   })
 
   it('does a basic mark with end defined', () => {
     markymark.start('bar')
     return markymark.end('bar').then(res => {
-      assert(res)
       assert(typeof res === 'number')
-      assert(res > 0)
+      assertGte(res, 0)
     })
   })
 
@@ -101,11 +97,11 @@ describe('markymark', function () {
       ])
     }).then(res => {
       return markymark.end('turtles').then(total => {
-        assertBetween(res[0], 500, 999)
-        assertBetween(res[1], 1000, 1499)
-        assertBetween(res[2], 1500, 1999)
-        assertBetween(res[3], 2000, 2500)
-        assertBetween(total, res[3], 5000)
+        assertBetween(res[0], 400, 1100)
+        assertBetween(res[1], 900, 1600)
+        assertBetween(res[2], 1400, 2100)
+        assertBetween(res[3], 1900, 2700)
+        assertBetween(total, 1900, 5000)
       })
     })
   })
