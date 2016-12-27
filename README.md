@@ -1,28 +1,32 @@
 markymark
 ======
 
-JavaScript performance timer based on `performance.mark()` and `performance.measure()`, i.e. the
-[User Timing API](http://caniuse.com/#feat=user-timing), allowing for high-resolution
-timings as well as better Dev Tools integration. Also uses
+JavaScript performance timer based on `performance.mark()` and `performance.measure()` (aka
+[User Timing API](http://caniuse.com/#feat=user-timing)), which provides high-resolution
+timings as well as nice Dev Tools visualizations. Also uses
 [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) for the
-minimum impact on runtime performance.
+minimum impact on app runtime performance.
 
 In Node, it uses `process.hrtime`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
-browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
+browsers that don't even support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
 
 Quick start
 ----
 
-Via npm:
+Install:
 
     npm install markymark
+
+Then take some measurements:
 
 ```js
 var markymark = require('markymark');
 
 markymark.start('expensive operation');
 doExpensiveOperation();
-markymark.end();
+markymark.end().then(function (duration) {
+  console.log('took: ' + duration);
+});
 ```
 
 Why?
