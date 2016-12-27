@@ -8,6 +8,6 @@ export default config => ({
   dest: config.dest,
   plugins: [
     buble(),
-    replace({BROWSER: JSON.stringify(!!config.browser)})
+    replace({'process.browser': JSON.stringify(!!config.browser)})
   ]
 })

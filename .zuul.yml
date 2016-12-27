@@ -1,0 +1,6 @@
+ui: mocha-bdd
+browserify:
+  - transform:
+      name: babelify
+      presets: es2015
+  - transform: envify
