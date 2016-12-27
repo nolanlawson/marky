@@ -1,12 +1,16 @@
 {
   "name": "markymark",
   "version": "1.0.0",
-  "description": "Performance logger based on performance.mark() and measure()",
-  "main": "lib/index.js",
-  "jsnext:main": "src/index.js",
+  "description": "Stopwatch based on performance.mark() and measure()",
+  "main": "lib/markymark.cjs.js",
+  "jsnext:main": "lib/markymark.es.js",
+  "module": "lib/markymark.es.js",
   "scripts": {
+    "clean": "rimraf lib dist && mkdirp lib dist",
+    "rollup": "rollup -c && rollup -c rollup.config.cjs.js && rollup -c rollup.config.es.js",
+    "minify": "uglifyjs -mc < dist/markymark.js > dist/markymark.min.js",
     "prepublish": "npm run build",
-    "build": "rimraf dist lib && mkdirp dist lib && rollup -c && rollup -c rollup.config.cjs.js && uglifyjs -mc < dist/markymark.js > dist/markymark.min.js"
+    "build": "run-scripts clean rollup minify"
   },
   "keywords": [
     "mark",
@@ -25,7 +29,11 @@
     "rimraf": "^2.5.4",
     "rollup": "^0.36.3",
     "rollup-plugin-buble": "^0.14.0",
+    "run-scripts": "^0.4.0",
     "uglify-js": "^2.7.4"
   },
-  "files: ["src", "lib", "dist"]
+  "files": [
+    "lib",
+    "dist"
+  ]
 }

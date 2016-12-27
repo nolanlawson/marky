@@ -1,7 +1,10 @@
-markmymark
+markymark
 ======
 
-Simple performance timer based on `performance.mark()` and `performance.measure()`, i.e. the [User Timing API](http://caniuse.com/#feat=user-timing). In browsers that don't support this API, it just logs the result.
+Simple performance timer based on `performance.mark()` and `performance.measure()`, i.e. the [User Timing API](http://caniuse.com/#feat=user-timing), allowing for high-resolution timings as well as better Dev Tools integration. Also uses [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) for the minimum impact on runtime app performance.
+
+In Node, it uses `process.hrtime`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
+browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
 
 Usage
 ----
@@ -16,17 +19,6 @@ var markymark = require('markymark');
 markymark.start('expensive operation');
 doExpensiveOperation();
 markymark.end();
-```
-
-Or via unpkg:
-
-```html
-<script src="https://unpkg.com/markymark/dist/markymark.min.js"></script>
-<script>
-markymark.start('expensive operation');
-doExpensiveOperation();
-markymark.end();
-</script>
 ```
 
 You can also provide a string to `end()` for more complex scenarios:
@@ -47,11 +39,11 @@ If you don't provide an argument to `end()`, it will use the most recent name fr
 Why?
 ---
 
-When you use the built-in `performance` APIs, you get nice visualizations in your Dev Tools:
+First off, it's more performant to use `mark()`/`measure()` rather than `console.time()`/`console.timeEnd()`.
 
-Plus, you also get high-resolution performance entries that can be easily provided as telemetry:
+Second off, when you use the built-in `performance` APIs, you get nice visualizations in your Dev Tools:
 
-```js
-var measures = performance.getEntries().filter(entry => entry.entryType === 'measure');
-sendViaAjax(measures); // send the data to your server
-```
+Since this is a standard API, it also shows up in Edge and Windows Performance Analyzer:
+
+These APIs are designed to have the minimum impact on app runtime performance and thus are safe to ship in production.
+(In fact, you should ship your measurements in production! Both Google and Bing already do this.)

@@ -2,7 +2,7 @@ import buble from 'rollup-plugin-buble'
 
 export default {
   entry: 'src/index.js',
-  format: 'cjs',
-  dest: 'lib/markymark.cjs.js',
+  format: 'es',
+  dest: 'lib/markymark.es.js',
   plugins: buble()
 }
