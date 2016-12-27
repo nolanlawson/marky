@@ -22,7 +22,5 @@ browsers:
     version: latest
   - name: iphone
     version: 8.4
-  - name: ipad
-    version: 8.4
   - name: android
     version: [4.4, 5.1]
