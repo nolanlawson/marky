@@ -1,21 +1,27 @@
 markymark
 ======
 
-JavaScript performance timer based on `performance.mark()` and `performance.measure()` (aka
+JavaScript performance timer based on `performance.mark()` and `performance.measure()` (i.e. the
 [User Timing API](http://caniuse.com/#feat=user-timing)), which provides high-resolution
 timings as well as nice Dev Tools visualizations. Also uses
-[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) for the
+[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) for
 minimum impact on app runtime performance.
 
-In Node, it uses `process.hrtime`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
+In Node, it uses `process.hrtime()`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
 browsers that don't even support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
 
 Quick start
 ----
 
-Install:
+Install via npm:
 
     npm install markymark
+
+Or as a script tag:
+
+```html
+<script src="https://unpkg.com/markymark/dist/markymark.min.js"></script>
+```
 
 Then take some measurements:
 
@@ -32,16 +38,22 @@ markymark.end().then(function (duration) {
 Why?
 ---
 
-First off, it's [more performant](https://twitter.com/Runspired/status/811007272671293440) to use `mark()`/`measure()` rather than `console.time()`/`console.timeEnd()`.
+First off, it's [more performant](https://twitter.com/Runspired/status/811007272671293440) to use `mark()`/`measure()` rather than `console.time()`/`console.timeEnd()`, and it's more accurate than `Date.now()`.
 
-Second off, when you use the built-in `performance` APIs, you get nice visualizations in the Chrome/Edge profilers:
+Second off, when you use the built-in `performance` APIs, you get nice visualizations in Chrome:
 
 ![Chrome Dev Tools screenshot](doc/chrome.png)
 
+As well as Edge:
+
 ![Edge F12 screenshot](doc/edge.png)
 
-These APIs are designed to have the minimum impact on app runtime performance and thus are safe to ship in production.
-(In fact, you should ship your `mark()`s and `measure()`s in production! Both Google and Bing already do this.
+Plus, you can easily send these measurements to your own analytics provider, because they're just standard
+[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry)s:
+
+```js
+var measurements = performance.getEntriesByType('measure');
+```
 
 API
 ---
@@ -85,21 +97,8 @@ markymark.end().then(function (duration) {
 ```
 
 The reason this is done asynchronously is because of how
-[PerformanceObserver][https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver] works; it
+[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) works; it
 allows the browser to do the actual measurement work in the background. 
-
-Not using Node/npm/Browserify/Webpack/etc.?
----
-
-You can use Markymark as a script tag:
-```html
-<script src="https://unpkg.com/markymark/dist/markymark.min.js"></script>
-<script>
-markymark.start('expensive operation');
-doExpensiveOperation();
-markymark.end();
-</script>
-```
 
 Browser support
 ----
