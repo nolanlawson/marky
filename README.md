@@ -38,13 +38,13 @@ markymark.end().then(function (duration) {
 Why?
 ---
 
-First off, it's [more performant](https://twitter.com/Runspired/status/811007272671293440) to use `mark()`/`measure()` rather than `console.time()`/`console.timeEnd()`, and it's more accurate than `Date.now()`.
+First, `mark()` and `measure()` are [more performant than `console.time()`/`console.timeEnd()`](https://twitter.com/Runspired/status/811007272671293440), and more accurate than `Date.now()`.
 
-Second off, when you use the built-in `performance` APIs, you get nice visualizations in Chrome:
+Also, you get nice visualizations in Chrome Dev Tools:
 
 ![Chrome Dev Tools screenshot](doc/chrome.png)
 
-As well as Edge:
+As well as Edge F12 Tools:
 
 ![Edge F12 screenshot](doc/edge.png)
 
