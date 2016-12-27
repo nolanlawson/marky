@@ -7,7 +7,7 @@
   "module": "lib/markymark.es.js",
   "scripts": {
     "clean": "rimraf lib dist && mkdirp lib dist",
-    "rollup": "rollup -c && rollup -c rollup.config.cjs.js && rollup -c rollup.config.es.js",
+    "rollup": "rollup -c config/rollup.config.iife.js && rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.es.js",
     "minify": "uglifyjs -mc < dist/markymark.js > dist/markymark.min.js",
     "prepublish": "npm run build",
     "build": "run-scripts clean rollup minify"
