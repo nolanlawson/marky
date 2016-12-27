@@ -16,7 +16,7 @@
     "build": "npm-run-all clean rollup minify",
     "test": "npm run rollup-cjs && mocha test/test.js",
     "test-browser": "npm run rollup-cjs && zuul --no-coverage test/test.js",
-    "dev": "NODE_ENV=development npm run rollup-cjs && zuul --no-coverage --local 9000 test/test.js"
+    "dev": "npm run rollup-cjs && NODE_ENV=development zuul --no-coverage --local 9000 test/test.js"
   },
   "keywords": [
     "mark",

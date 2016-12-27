@@ -13,7 +13,7 @@ if (process.browser) {
   let loadTime = getNanoSeconds()
 
   function nowHrtime() {
-    return getNanoSeconds() - loadTime / 1e6
+    return (getNanoSeconds() - loadTime) / 1e6
   }
 
   function getNanoSeconds() {

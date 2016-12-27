@@ -24,10 +24,14 @@ if (typeof PerformanceObserver === 'function') {
   let observer = new PerformanceObserver(onObserve)
   observer.observe({entryTypes: ["measure"]})
 } else if (supportsMarkMeasure) {
+  let len = 0
   setInterval(() => {
     let entries = performance.getEntriesByType('measure')
-    processList(entries)
-  }, 1000)
+    if (entries.length > len) {
+      processList(entries.slice(len))
+      len = entries.length
+    }
+  }, 2000)
 } else {
   onNewFakeEntry(processList)
 }
