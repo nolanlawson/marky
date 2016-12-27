@@ -8,8 +8,12 @@ let deferreds = new Map()
 function processList(entries) {
   for (let i = 0, len = entries.length; i < len; i++) {
     let entry = entries[i]
+    if (entry.__observed) {
+      continue
+    }
     let deferred = deferreds.get(entry.name)
     if (deferred) {
+      entry.__observed = true
       deferreds.delete(entry.name)
       deferred(entry.duration)
     }
@@ -24,13 +28,9 @@ if (typeof PerformanceObserver === 'function') {
   let observer = new PerformanceObserver(onObserve)
   observer.observe({entryTypes: ["measure"]})
 } else if (supportsMarkMeasure) {
-  let len = 0
   setInterval(() => {
     let entries = performance.getEntriesByType('measure')
-    if (entries.length > len) {
-      processList(entries.slice(len))
-      len = entries.length
-    }
+    processList(entries)
   }, 2000)
 } else {
   onNewFakeEntry(processList)

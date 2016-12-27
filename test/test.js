@@ -71,10 +71,10 @@ describe('markymark', function () {
   })
 
   it('can measure two directly subsequent measurements', () => {
-    markymark.start('haha')
+    markymark.start('thing number one')
     return sleep(500).then(() => {
       let promise1 = markymark.end()
-      markymark.start('haha2')
+      markymark.start('thing numero dos')
       return sleep(1500).then(() => {
         return Promise.all([promise1, markymark.end()])
       }).then(res => {
@@ -85,20 +85,27 @@ describe('markymark', function () {
   })
 
   it('can do many measurements in parallel', () => {
-    markymark.start('leonardo')
-    markymark.start('michelangelo')
-    markymark.start('donatello')
-    markymark.start('raphael')
+    markymark.start('turtles')
     return Promise.all([
-      sleep(500).then(() => markymark.end('leonardo')),
-      sleep(1000).then(() => markymark.end('michelangelo')),
-      sleep(1500).then(() => markymark.end('donatello')),
-      sleep(2000).then(() => markymark.end('raphael'))
-    ]).then(res => {
-      assertBetween(res[0], 500, 999)
-      assertBetween(res[1], 1000, 1499)
-      assertBetween(res[2], 1500, 1999)
-      assertBetween(res[3], 2000, 2500)
+      sleep(5).then(() => markymark.start('leonardo')),
+      sleep(10).then(() => markymark.start('michelangelo')),
+      sleep(15).then(() => markymark.start('donatello')),
+      sleep(20).then(() => markymark.start('raphael'))
+    ]).then(() => {
+      return Promise.all([
+        sleep(500).then(() => markymark.end('leonardo')),
+        sleep(1000).then(() => markymark.end('michelangelo')),
+        sleep(1500).then(() => markymark.end('donatello')),
+        sleep(2000).then(() => markymark.end('raphael'))
+      ])
+    }).then(res => {
+      return markymark.end('turtles').then(total => {
+        assertBetween(res[0], 500, 999)
+        assertBetween(res[1], 1000, 1499)
+        assertBetween(res[2], 1500, 1999)
+        assertBetween(res[3], 2000, 2500)
+        assertBetween(total, res[3], 5000)
+      })
     })
   })
 })
