@@ -8,9 +8,7 @@ timings as well as nice Dev Tools visualizations. Also uses
 minimum impact on app runtime performance.
 
 In Node, it uses `process.hrtime()`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
-browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
-
-Total size min+gz is ~0.6KB.
+browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`. Total size is ~0.6KB (min+gz).
 
 Quick start
 ----
