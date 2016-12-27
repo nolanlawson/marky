@@ -52,6 +52,7 @@ Plus, you can easily send these measurements to your own analytics provider, bec
 [PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry)s:
 
 ```js
+// get all startTimes, names, and durations
 var measurements = performance.getEntriesByType('measure');
 ```
 
@@ -98,7 +99,7 @@ markymark.end().then(function (duration) {
 
 The reason this is done asynchronously is because of how
 [PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) works; it
-allows the browser to do the actual measurement work in the background. 
+allows the browser to schedule the measurement work in the most optimal way.
 
 Browser support
 ----
@@ -117,3 +118,5 @@ Or as a script tag:
 ```
 
 Markymark supports the following browsers (with the Promise+Map polyfills):
+
+TODO: fill this out
