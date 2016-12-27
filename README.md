@@ -8,7 +8,7 @@ timings as well as nice Dev Tools visualizations. Also uses
 minimum impact on app runtime performance.
 
 In Node, it uses `process.hrtime()`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
-browsers that don't even support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
+browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`.
 
 Quick start
 ----
