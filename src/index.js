@@ -1,4 +1,4 @@
-import observe from './observe'
+import { observe } from './observer'
 import { mark, measure } from './markMeasure'
 
 let promises = new Map()

@@ -1,7 +1,6 @@
 /* global PerformanceObserver,performance */
 
 import supportsMarkMeasure from './supportsMarkMeasure'
-import { onNewFakeEntry } from './fakeEntry'
 
 let deferreds = new Map()
 
@@ -25,16 +24,13 @@ function onObserve (entriesList) {
 }
 
 if (typeof PerformanceObserver === 'function') {
-  let observer = new PerformanceObserver(onObserve)
-  observer.observe({entryTypes: ['measure']})
+  new PerformanceObserver(onObserve).observe({entryTypes: ['measure']})
 } else if (supportsMarkMeasure) {
   setInterval(() => {
     let entries = performance.getEntriesByType('measure')
     processList(entries)
   }, 2000)
-} else {
-  onNewFakeEntry(processList)
-}
+} // else fake entries will be created instead
 
 function observe (name) {
   return new Promise(resolve => {
@@ -42,4 +38,11 @@ function observe (name) {
   })
 }
 
-export default observe
+function createFakeEntry (name, duration) {
+  processList([{
+    name: name,
+    duration: duration
+  }])
+}
+
+export { observe, createFakeEntry }

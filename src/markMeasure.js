@@ -2,7 +2,7 @@
 
 import now from './now'
 import supportsMarkMeasure from './supportsMarkMeasure'
-import { newFakeEntry } from './fakeEntry'
+import { createFakeEntry } from './observer'
 
 let mark
 let measure
@@ -27,7 +27,7 @@ if (supportsMarkMeasure) {
     let endTime = marks.get(end)
     marks.delete(end)
     let duration = endTime - startTime
-    newFakeEntry(name, duration)
+    createFakeEntry(name, duration)
   }
 }
 

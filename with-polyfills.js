@@ -1,1 +1,1 @@
-module.exports = require('./lib/markymark.browser.with-polyfills.cjs.js')
+module.exports = require('./lib/markymark.with-polyfills.cjs.js')

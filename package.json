@@ -7,7 +7,7 @@
   "module": "lib/markymark.es.js",
   "scripts": {
     "clean": "rimraf lib dist && mkdirp lib dist",
-    "rollup-polyfills": "rollup -c config/rollup.config.browser.with-polyfills.cjs.js && rollup -c config/rollup.config.iife.with-polyfills.js",
+    "rollup-polyfills": "rollup -c config/rollup.config.with-polyfills.cjs.js && rollup -c config/rollup.config.browser.with-polyfills.cjs.js && rollup -c config/rollup.config.with-polyfills.iife.js",
     "rollup-cjs": "rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.browser.cjs.js",
     "rollup-es": "rollup -c config/rollup.config.es.js && rollup -c config/rollup.config.browser.es.js",
     "rollup-iife": "rollup -c config/rollup.config.iife.js",
@@ -63,6 +63,7 @@
   ],
   "browser": {
     "./lib/markymark.cjs.js": "./lib/markymark.browser.cjs.js",
+    "./lib/markymark.with-polyfills.cjs.js": "./lib/markymark.browser.with-polyfills.cjs.js",
     "./lib/markymark.es.js": "./lib/markymark.browser.es.js"
   },
   "standard": {
