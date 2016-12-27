@@ -1,7 +1,13 @@
 // implementation borrowed from:
 // https://github.com/myrne/performance-now/blob/6223a0d544bae1d5578dd7431f78b4ec7d65b15c/src/performance-now.coffee
-let hrtime = process.hrtime
-let loadTime = getNanoSeconds()
+
+let hrtime
+let loadTime
+
+if (!process.browser) {
+  hrtime = process.hrtime
+  loadTime = getNanoSeconds()
+}
 
 function nowHrtime () {
   return (getNanoSeconds() - loadTime) / 1e6
