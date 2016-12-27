@@ -1,7 +1,9 @@
 /* global PerformanceObserver,performance */
 
 import supportsMarkMeasure from './supportsMarkMeasure'
+import supportsPerfObserver from './supportsPerformanceObserver'
 
+let POLLING_DURATION = 2000
 let deferreds = new Map()
 
 function processList (entries) {
@@ -23,13 +25,13 @@ function onObserve (entriesList) {
   processList(entriesList.getEntriesByType('measure'))
 }
 
-if (typeof PerformanceObserver === 'function') {
+if (supportsPerfObserver) {
   new PerformanceObserver(onObserve).observe({entryTypes: ['measure']})
 } else if (supportsMarkMeasure) {
   setInterval(() => {
     let entries = performance.getEntriesByType('measure')
     processList(entries)
-  }, 2000)
+  }, POLLING_DURATION)
 } // else fake entries will be created instead
 
 function observe (name) {
