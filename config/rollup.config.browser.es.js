@@ -1,7 +1,7 @@
 import config from './rollup.config'
 
 export default config({
-  format: 'iife',
-  dest: 'dist/markymark.js',
+  format: 'es',
+  dest: 'lib/markymark.browser.es.js',
   browser: true
 })

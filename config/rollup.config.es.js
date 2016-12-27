@@ -1,8 +1,7 @@
-import buble from 'rollup-plugin-buble'
+import config from './rollup.config'
 
-export default {
-  entry: 'src/index.js',
+export default config({
   format: 'es',
   dest: 'lib/markymark.es.js',
-  plugins: buble()
-}
+  browser: false
+})
