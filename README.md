@@ -111,6 +111,9 @@ Marky is tested in the following browsers/environments:
 * Edge
 * Node 4+
 
+In Node and [browsers that don't support the User Timing API](http://caniuse.com/#feat=user-timing), `marky.stop()` will
+still return an object with a `duration` and a `startTime`, but you won't be able to find it via `performance.getEntries()`.
+
 Credits
 ----
 
