@@ -45,7 +45,7 @@ As well as Edge F12 Tools:
 
 Plus, it records
 [PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) that you can access through
-the standard [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance):
+the standard [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance) (in [supported browsers](http://caniuse.com/#feat=user-timing):
 
 ```js
 // get all startTimes, names, and durations
