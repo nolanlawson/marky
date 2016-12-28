@@ -1,11 +1,11 @@
 marky
 ======
 
-JavaScript timer based on `performance.mark()` and `performance.measure()`, which provides [high-resolution
+JavaScript timer based on `performance.mark()` and `performance.measure()`, providjng [high-resolution
 timings](http://caniuse.com/#feat=user-timing) as well as nice Dev Tools visualizations.
 
 For browsers that don't support `performance.mark()`, it falls back to 
-`performance.now()` or `Date.now()`. In Node, it uses `process.hrtime()`. 
+`performance.now()` or `Date.now()`. In Node, it uses `process.hrtime()`.
 
 Quick start
 ----
@@ -43,8 +43,9 @@ As well as Edge F12 Tools:
 
 ![Edge F12 screenshot](doc/edge.png)
 
-Plus, you can easily send these measurements to your own analytics provider, because they're just standard
-[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) objects:
+Plus, it records
+[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry)s you can access through
+the standard [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance):
 
 ```js
 // get all startTimes, names, and durations
@@ -99,7 +100,7 @@ The entry will look something like:
 Browser support
 ----
 
-Markymark is tested in the following browsers/environments:
+Marky is tested in the following browsers/environments:
 
 * IE 9+
 * Safari 8+
