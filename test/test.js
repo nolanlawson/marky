@@ -1,8 +1,8 @@
 /* global it, describe */
 
-let assert = require('assert')
-let marky = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
-let Promise = require('native-or-lie')
+var assert = require('assert')
+var marky = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
+var Promise = require('native-or-lie')
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
