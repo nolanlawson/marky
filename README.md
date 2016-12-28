@@ -44,7 +44,7 @@ As well as Edge F12 Tools:
 ![Edge F12 screenshot](doc/edge.png)
 
 Plus, it records
-[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry)s you can access through
+[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) that you can access through
 the standard [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance):
 
 ```js
