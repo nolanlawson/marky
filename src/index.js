@@ -1,23 +1,26 @@
-import { observe } from './observer'
 import { mark, measure } from './markMeasure'
 
-let promises = new Map()
 let lastName
 
 function start (name) {
   lastName = name
-  let promise = observe(name)
-  promises.set(name, promise)
+
+  if (!name) {
+    throw new Error('name must be non-empty')
+  }
+
   mark('start ' + name)
 }
 
 function end (name) {
   name = name || lastName
+
+  if (!name) {
+    throw new Error('name must be non-empty')
+  }
+
   mark('end ' + name)
-  measure(name, 'start ' + name, 'end ' + name)
-  let promise = promises.get(name)
-  promises.delete(name)
-  return promise
+  return measure(name, 'start ' + name, 'end ' + name)
 }
 
 export { start, end }

@@ -2,32 +2,40 @@
 
 import now from './now'
 import supportsMarkMeasure from './supportsMarkMeasure'
-import { createFakeEntry } from './observer'
 
 let mark
 let measure
 
 if (supportsMarkMeasure) {
-  mark = performance.mark.bind(performance)
-  measure = performance.measure.bind(performance)
-} else {
-  let marks = new Map()
   mark = name => {
-    marks.set(name, now())
+    performance.mark(name)
   }
   measure = (name, start, end) => {
-    if (!marks.has(start)) {
+    performance.measure(name, start, end)
+    let entries = performance.getEntriesByName(name)
+    return entries[entries.length - 1]
+  }
+} else {
+  let marks = {}
+  mark = name => {
+    let time = now()
+    marks['$' + name] = time
+  }
+  measure = (name, start, end) => {
+    let startTime = marks['$' + start]
+    if (!startTime) {
       throw new Error(`no known mark: ${start}`)
     }
-    if (!marks.has(end)) {
-      throw new Error(`no known mark: ${end}`)
-    }
-    let startTime = marks.get(start)
-    marks.delete(start)
-    let endTime = marks.get(end)
-    marks.delete(end)
+    let endTime = marks['$' + end]
+    delete marks['$' + start]
+    delete marks['$' + end]
     let duration = endTime - startTime
-    createFakeEntry(name, duration)
+    return {
+      startTime,
+      duration,
+      name,
+      entryType: 'measure'
+    }
   }
 }
 

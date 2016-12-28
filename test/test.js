@@ -2,6 +2,7 @@
 
 let assert = require('assert')
 let markymark = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
+let Promise = require('native-or-lie')
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -29,17 +30,55 @@ describe('markymark', function () {
 
   it('does a basic mark', () => {
     markymark.start('foo')
-    return markymark.end().then(res => {
-      assert(typeof res === 'number')
-      assertGte(res, 0)
-    })
+    var res = markymark.end()
+    assert(typeof res.duration === 'number')
+    assertGte(res.duration, 0)
   })
 
   it('does a basic mark with end defined', () => {
     markymark.start('bar')
-    return markymark.end('bar').then(res => {
-      assert(typeof res === 'number')
-      assertGte(res, 0)
+    var res = markymark.end('bar')
+    assert(typeof res.duration === 'number')
+    assertGte(res.duration, 0)
+  })
+
+  it('does a basic mark with an entry result', () => {
+    markymark.start('bar')
+    var res = markymark.end('bar')
+    assert(typeof res.duration === 'number')
+    assert.equal(res.entryType, 'measure')
+    assert.equal(res.name, 'bar')
+    assert(typeof res.startTime === 'number')
+  })
+
+  it('throws errors on unknown marks', () => {
+    markymark.start('toto')
+    return Promise.resolve().then(() => {
+      return markymark.end('lala')
+    }).then(() => {
+      throw new Error('expected an error here')
+    }, err => {
+      assert(err)
+    })
+  })
+
+  it('throws errors on empty mark starts', () => {
+    return Promise.resolve().then(() => {
+      return markymark.start()
+    }).then(() => {
+      throw new Error('expected an error here')
+    }, err => {
+      assert(err)
+    })
+  })
+
+  it('throws errors on empty mark ends', () => {
+    return Promise.resolve().then(() => {
+      return markymark.end()
+    }).then(() => {
+      throw new Error('expected an error here')
+    }, err => {
+      assert(err)
     })
   })
 
@@ -48,7 +87,7 @@ describe('markymark', function () {
     return sleep(1000).then(() => {
       return markymark.end()
     }).then(res => {
-      assertBetween(res, 950, 2000)
+      assertBetween(res.duration, 950, 2000)
     })
   })
 
@@ -61,8 +100,8 @@ describe('markymark', function () {
       return sleep(1500).then(() => {
         return markymark.end()
       }).then(res2 => {
-        assertBetween(res1, 450, 1400)
-        assertBetween(res2, 1450, 2400)
+        assertBetween(res1.duration, 450, 1400)
+        assertBetween(res2.duration, 1450, 2400)
       })
     })
   })
@@ -70,13 +109,13 @@ describe('markymark', function () {
   it('can measure two directly subsequent measurements', () => {
     markymark.start('thing number one')
     return sleep(500).then(() => {
-      let promise1 = markymark.end()
+      var res1 = markymark.end()
       markymark.start('thing numero dos')
       return sleep(1500).then(() => {
-        return Promise.all([promise1, markymark.end()])
-      }).then(res => {
-        assertBetween(res[0], 450, 1400)
-        assertBetween(res[1], 1450, 2400)
+        return markymark.end()
+      }).then(res2 => {
+        assertBetween(res1.duration, 450, 1400)
+        assertBetween(res2.duration, 1450, 2400)
       })
     })
   })
@@ -96,13 +135,12 @@ describe('markymark', function () {
         sleep(2000).then(() => markymark.end('raphael'))
       ])
     }).then(res => {
-      return markymark.end('turtles').then(total => {
-        assertBetween(res[0], 400, 1100)
-        assertBetween(res[1], 900, 1600)
-        assertBetween(res[2], 1400, 2100)
-        assertBetween(res[3], 1900, 2700)
-        assertBetween(total, 1900, 5000)
-      })
+      var total = markymark.end('turtles')
+      assertBetween(res[0].duration, 400, 1100)
+      assertBetween(res[1].duration, 900, 1600)
+      assertBetween(res[2].duration, 1400, 2100)
+      assertBetween(res[3].duration, 1900, 2700)
+      assertBetween(total.duration, 1900, 5000)
     })
   })
 })
