@@ -1,7 +1,7 @@
 marky
 ======
 
-Tiny JavaScript timer based on `performance.mark()` and `performance.measure()`, which provides [high-resolution
+JavaScript timer based on `performance.mark()` and `performance.measure()`, which provides [high-resolution
 timings](http://caniuse.com/#feat=user-timing) as well as nice Dev Tools visualizations.
 
 For browsers that don't support `performance.mark()`, it falls back to 
@@ -33,9 +33,9 @@ marky.stop('expensive operation');
 Why?
 ---
 
-First, `mark()` and `measure()` are [more performant than `console.time()` and `console.timeEnd()`](https://twitter.com/Runspired/status/811007272671293440), and [more accurate than `Date.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now).
-
-Also, you get nice visualizations in Chrome Dev Tools:
+`mark()` and `measure()` are [more performant](https://twitter.com/Runspired/status/811007272671293440)
+than `console.time()` and `console.timeEnd()`,
+and [more accurate](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) than `Date.now()`. Also, you get nice visualizations in Chrome Dev Tools:
 
 ![Chrome Dev Tools screenshot](doc/chrome.png)
 
