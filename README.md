@@ -1,7 +1,7 @@
 marky [![Build Status](https://travis-ci.org/nolanlawson/marky.svg?branch=master)](https://travis-ci.org/nolanlawson/marky)
 ======
 
-JavaScript timer based on `performance.mark()` and `performance.measure()`, providjng [high-resolution
+JavaScript timer based on `performance.mark()` and `performance.measure()`, providing [high-resolution
 timings](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) as well as nice Dev Tools visualizations.
 
 For browsers that don't support `performance.mark()`, it falls back to 
