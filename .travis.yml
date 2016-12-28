@@ -9,14 +9,18 @@ env:
   matrix:
   - COMMAND=test
   - COMMAND=test-browser
+  global:
+  - secure: dYJvUSPEsAovCngR+dywL7HKTFvIlmERZ4xjBpTFggBTtcbQ2Actxf4Yi3kK8jWG5l6wPISp+UInW2JEJrpD0PfY1Z8Cu5Lzfbig9yPlD66P0uV4+/79OIbObI6mCeQwPQ7rT5gZXQZvXPYMbxbyLwkaulcPmrFGOZz1Hn2g63WppHdeeCgHnC25w9d2nLXS660Pi0MdbTmdqdmQokmcFAOuHagUTLfTAMtjB4sqa3K4PVER0MNBAm2kHM+ZjgBQWyfob1XQUvtltKFC/AHzuf8JVS5UB01tESWjB3/oVP+8I4tCimVW+m2b5JWP9CIpZp4ujSyYKTiYEGGwaYUJd58y6V3Oy8D4cjVfrRgF65G7/ao0tzbdGyW/jLi3wHC5kz/Ht7g6/OXyCvg6psAiWyqahfald0LG7y3mGbwAiJn2tvCrbM6sd8PqJnwqXRX5PqiP01wizbFH54oeXN3pj3+5AWXIkf9hUqkbGFYPgTpd4Ul7N2F+keOwSfJI9E9TRZ4V6JxEDudedyMqdaTK+Y5yN81XARPjBQZLFYDWUMXkheOPMguKcvcMiAgbytLHEUbHP4kjMroG9Upd6op1CMs+kQkMTYFoJWbdFd2TTJl7G4A+dzdyPziCwxTPupYvYkshBscHZRt0bzXQA3qSmTkfeLYf4jlvDvfZYnlr+js=
+  - secure: nXGDsUmdvfZBss9OEVyPNH8YaLpuECIS/EU7nvog30sZBYU9Fjxob2KZI3W+9eSyplcPIfb9JOYjVxlkOcDc2Z1o2W7SKtC+QwCXs4ItPc6yurMZtKThD7wHBOU6qvLIwwvzYwS0Y3IHeDsatAGh+UNW67/nfoZrP4rE6x+4Slcg8q+WMfNj6ep1CQoX/+GQog1V99lmFkau0UzNCjptjHQ++iwKdXjkKBarb0BLlVbcnr19G24cyXoZByhA9URD1kPVyTKRgNFB1R9ZMQ7aWaSIRK37DV7k1veU8eOZaWnCub41IkHGC86aPYTZ1LJbMq+2mWNV1r9DA+vaL9Bpurs381Wt8pGO6UpZR4Ti92TmBZNUaArkSwM0hiVP8JNhi7E+Q+7uUxl18ZqjLxl5OOCxKsfzhK9YJ+v3KRtKd0nf2JeBR8Xdi5boLLvZvjckt2mVDPribKxW7WLGVw3XU79ehJ4OgpbR9kIpa+mp0kJYlJvf6Ymjdv//vt3JXps/NZFE36G0sNNcRzx434t4+sT210ocB3GK25EwcLlplt1w8tpcz1dwcM/+a7wE8jlZojka2+jYuscEd/z50ZJxIkLTU8Q9pOdnHToEZaoYn+yUv2O/uDhZDe9WPN5wEM7kySF865BC00aDq5JIpwpkAb9quLU3Sq1J6YHbw7z1jqc=
+  - secure: qH2yE/nrilu2m5A9GNLs4Tpey0xEqneMbhOJU3qqq7BQWM7DNE5bC8JPgTFixseS/Wg3FLFSnsdCpdPM05o4JxnWbhTcJSae1dnLt5GgIOin1fFTyfo7Ppd5wu0pQY++iwCk5aEg9LOB005CRbLGBK1QX/BWdS1/3QVTUcVaR8VrCV5tj/BLyzrMlAQPnzXdIiq64Eai7EJ99tTjnuNpUC5jMgOgRU49MEpqtWugEuIUCr5lGzoJwnb764kv1Ms2M2U5g6sbrYyL2DPa1emes0TbOhhUSN9UPVSFc0BQQ7EkhdUn1SRIujFZtqJdknuLIEfiGyvGnjDqPK7AQbGSbRkxIU61aIBVac4b2GFuuiUQZr3/BrYn30TAphyENWFr5tQ/z7Ihex4TK2sEcLisBN0+9TnFWyc63Y5RUhkFGI6kW6J2wyv4wpv83CtPk6FxZ/3q2y2N+Tu1bXVLHTaffQxjxiFtSo0EzNu+QrIFQD5AQLWs4o4gPSXSdDZqe0pyDOSZn+oR5rtYtAZlaXTTsO0jFKnD9Om1tWvnEC2r3t1CIimBsQrHALoygqn13MG9oQwmdxnlNSwQaaRVgpqU3Zx3QByw5c6AXc3545+vec8F6iJVt0K+XWi08OclsxRsHjMzFqHG8JrgUB8lQIKoi2taLO0OVRG82N7gF1x4ktE=
 matrix:
   include:
-    - node_js: "4"
-      services: docker
-      env: CLIENT=node COMMAND=test
-    - node_js: "7"
-      services: docker
-      env: CLIENT=node COMMAND=test
+  - node_js: '4'
+    services: docker
+    env: CLIENT=node COMMAND=test
+  - node_js: '7'
+    services: docker
+    env: CLIENT=node COMMAND=test
 branches:
   only:
   - master
