@@ -110,3 +110,8 @@ Marky is tested in the following browsers/environments:
 * Firefox
 * Edge
 * Node 4+
+
+Credits
+----
+
+Thanks to [@toddreifsteck](https://github.com/toddreifsteck) for feedback on this project and clarifications on the User Timing API.
