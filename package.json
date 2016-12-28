@@ -50,7 +50,7 @@
     "standard": "^8.6.0",
     "uglify-js": "^2.7.4",
     "zuul": "^3.11.1",
-    "zuul-ngrok": "nolanlawson/zuul-ngrok#patch-1"
+    "zuul-ngrok": "github:nolanlawson/zuul-ngrok#patch-1"
   },
   "files": [
     "lib",
@@ -65,5 +65,13 @@
       "lib",
       "dist"
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nolanlawson/marky.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nolanlawson/marky/issues"
+  },
+  "homepage": "https://github.com/nolanlawson/marky#readme"
 }
