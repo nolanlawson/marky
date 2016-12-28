@@ -3,14 +3,14 @@
 import now from './now'
 import supportsMarkMeasure from './supportsMarkMeasure'
 
-let mark
-let stop
-
 function throwIfEmpty (name) {
   if (!name) {
     throw new Error('name must be non-empty')
   }
 }
+
+let mark
+let stop
 
 if (supportsMarkMeasure) {
   mark = name => {

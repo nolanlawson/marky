@@ -1,14 +1,12 @@
 marky
 ======
 
-JavaScript performance timer based on `performance.mark()` and `performance.measure()` (i.e. the
+Tiny JavaScript timer based on `performance.mark()` and `performance.measure()` (i.e. the
 [User Timing API](http://caniuse.com/#feat=user-timing)), which provides high-resolution
-timings as well as nice Dev Tools visualizations. Also uses
-[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) for
-minimum impact on app runtime performance.
+timings as well as nice Dev Tools visualizations.
 
-In Node, it uses `process.hrtime()`. For browsers that don't support `PerformanceObserver`, it falls back to polling. For
-browsers that don't support `performance.mark()`, it falls back to `performance.now()` or `Date.now()`. Total size is ~0.6KB (min+gz).
+For browsers that don't support `performance.mark()`, it falls back to 
+`performance.now()` or `Date.now()`. In Node, it uses `process.hrtime()`. 
 
 Quick start
 ----
@@ -28,17 +26,15 @@ Then take some measurements:
 ```js
 var marky = require('marky');
 
-marky.start('expensive operation');
+marky.mark('expensive operation');
 doExpensiveOperation();
-marky.end().then(function (duration) {
-  console.log('took: ' + duration);
-});
+marky.stop('expensive operation');
 ```
 
 Why?
 ---
 
-First, `mark()` and `measure()` are [more performant than `console.time()`/`console.timeEnd()`](https://twitter.com/Runspired/status/811007272671293440), and more accurate than `Date.now()`.
+First, `mark()` and `measure()` are [more performant than `console.time()` and `console.timeEnd()`](https://twitter.com/Runspired/status/811007272671293440), and [more accurate than `Date.now()`](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now).
 
 Also, you get nice visualizations in Chrome Dev Tools:
 
@@ -49,7 +45,7 @@ As well as Edge F12 Tools:
 ![Edge F12 screenshot](doc/edge.png)
 
 Plus, you can easily send these measurements to your own analytics provider, because they're just standard
-[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry)s:
+[PerformanceEntry](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) objects:
 
 ```js
 // get all startTimes, names, and durations
@@ -59,65 +55,52 @@ var measurements = performance.getEntriesByType('measure');
 API
 ---
 
-`marky.start()` begins recording, and `marky.end()` finishes recording:
+`marky.mark()` begins recording, and `marky.stop()` finishes recording:
 
 ```js
-marky.start('defendTheCastle');
-defendTheCastle();
-marky.end();
+marky.mark('releaseTheHounds');
+releaseTheHounds();
+marky.stop('releaseTheHounds');
 ```
 
-You can also provide a string to `end()` for more complex scenarios:
+You can also do more complex scenarios:
 
 ```js
-function defendTheCastle() {
-  marky.start('defendTheCastle');
-  marky.start('releaseTheHounds');
-  releaseTheHounds();
-  marky.end();
-  marky.start('armTheCannons');
-  armTheCannons();
-  marky.end();
-  marky.end('defendTheCastle');
+function setSail() {
+  marky.mark('setSail');
+  marky.mark('raiseTheAnchor');
+  raiseTheAnchor();
+  marky.stop('raiseTheAnchor');
+  marky.mark('unfurlTheSails');
+  unfurlTheSails();
+  marky.stop('unfurlTheSails');
+  marky.stop('setSail');
 }
 ```
 
-If you don't provide an argument to `end()`, it will use the name from the most recent `start()`.
-
-Asynchronous measurements
-----
-
-`marky.end()` returns a `Promise` for the measurement of the duration:
+`marky.stop()` also returns a `PerformanceEntry`:
 
 ```js
-marky.start('manTheTorpedos');
+marky.mark('manTheTorpedos');
 manTheTorpedos();
-marky.end().then(function (duration) {
-  console.log(duration); // duration in milliseconds
-});
+var entry = marky.stop('manTheTorpedos');
 ```
 
-The reason this is done asynchronously is because of how
-[PerformanceObserver](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver) works; it
-allows the browser to schedule the measurement work in the most optimal way.
+The entry will look something like:
+
+```json
+{
+  "entryType": "measure",
+  "startTime": 1974112,
+  "duration": 350,
+  "name": "manTheTorpedos"
+}
+```
 
 Browser support
 ----
 
-Markymark doesn't require ES6 syntax, but it does use `Promise` and `Map`. If your target environment doesn't support those,
-you'll need a polyfill. Or you can use:
-
-```js
-var marky = require('marky/with-polyfills');
-```
-
-Or as a script tag:
-
-```html
-<script src="https://unpkg.com/marky/dist/marky.with-polyfills.min.js"></script>
-```
-
-Markymark is tested in the following browsers (with the Promise+Map polyfills):
+Markymark is tested in the following browsers/environments:
 
 * IE 9+
 * Safari 8+
@@ -126,5 +109,4 @@ Markymark is tested in the following browsers (with the Promise+Map polyfills):
 * Chrome
 * Firefox
 * Edge
-
-Node 4+ is supported.
+* Node 4+
