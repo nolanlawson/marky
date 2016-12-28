@@ -17,10 +17,10 @@ matrix:
   include:
   - node_js: '4'
     services: docker
-    env: CLIENT=node COMMAND=test
+    env: COMMAND=test
   - node_js: '7'
     services: docker
-    env: CLIENT=node COMMAND=test
+    env: COMMAND=test
 branches:
   only:
   - master
