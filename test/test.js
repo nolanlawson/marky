@@ -8,6 +8,12 @@ function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+function assertGt (num1, num2) {
+  num1 = Math.round(num1)
+  num2 = Math.round(num2)
+  assert(num1 > num2, `failed: ${num1} > ${num2}`)
+}
+
 function assertGte (num1, num2) {
   num1 = Math.round(num1)
   num2 = Math.round(num2)
@@ -95,6 +101,24 @@ describe('marky', function () {
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
+        assertGt(res2.startTime, res1.startTime)
+      })
+    })
+  })
+
+  it('can measure two interleaved measurements', () => {
+    marky.mark('ichi')
+    return sleep(500).then(() => {
+      marky.mark('ni')
+      return sleep(500)
+    }).then(() => {
+      var res1 = marky.stop('ichi')
+      return sleep(1000).then(() => {
+        return marky.stop('ni')
+      }).then(res2 => {
+        assertBetween(res1.duration, 900, 1400)
+        assertBetween(res2.duration, 1450, 2000)
+        assertGt(res2.startTime, res1.startTime)
       })
     })
   })
@@ -109,6 +133,7 @@ describe('marky', function () {
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
+        assertGt(res2.startTime, res1.startTime)
       })
     })
   })

@@ -2,7 +2,7 @@ marky
 ======
 
 JavaScript timer based on `performance.mark()` and `performance.measure()`, providjng [high-resolution
-timings](http://caniuse.com/#feat=user-timing) as well as nice Dev Tools visualizations.
+timings](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) as well as nice Dev Tools visualizations.
 
 For browsers that don't support `performance.mark()`, it falls back to 
 `performance.now()` or `Date.now()`. In Node, it uses `process.hrtime()`.
