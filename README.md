@@ -1,9 +1,8 @@
 marky
 ======
 
-Tiny JavaScript timer based on `performance.mark()` and `performance.measure()` (i.e. the
-[User Timing API](http://caniuse.com/#feat=user-timing)), which provides high-resolution
-timings as well as nice Dev Tools visualizations.
+Tiny JavaScript timer based on `performance.mark()` and `performance.measure()`, which provides [high-resolution
+timings](http://caniuse.com/#feat=user-timing) as well as nice Dev Tools visualizations.
 
 For browsers that don't support `performance.mark()`, it falls back to 
 `performance.now()` or `Date.now()`. In Node, it uses `process.hrtime()`. 
