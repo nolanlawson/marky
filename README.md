@@ -33,7 +33,7 @@ marky.stop('expensive operation');
 Why?
 ---
 
-`mark()` and `measure()` are [more performant](https://twitter.com/Runspired/status/811007272671293440)
+The [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) is [more performant](https://twitter.com/Runspired/status/811007272671293440)
 than `console.time()` and `console.timeEnd()`,
 and [more accurate](https://developer.mozilla.org/en-US/docs/Web/API/Performance/now) than `Date.now()`. Also, you get nice visualizations in Chrome Dev Tools:
 
