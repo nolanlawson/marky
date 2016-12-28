@@ -28,23 +28,16 @@ function assertBetween (num, num1, num2) {
 describe('marky', function () {
   this.timeout(30000)
 
-  it('does a basic mark', () => {
-    marky.start('foo')
-    var res = marky.end()
-    assert(typeof res.duration === 'number')
-    assertGte(res.duration, 0)
-  })
-
   it('does a basic mark with end defined', () => {
-    marky.start('bar')
-    var res = marky.end('bar')
+    marky.mark('bar')
+    var res = marky.stop('bar')
     assert(typeof res.duration === 'number')
     assertGte(res.duration, 0)
   })
 
   it('does a basic mark with an entry result', () => {
-    marky.start('bar')
-    var res = marky.end('bar')
+    marky.mark('bar')
+    var res = marky.stop('bar')
     assert(typeof res.duration === 'number')
     assert.equal(res.entryType, 'measure')
     assert.equal(res.name, 'bar')
@@ -52,9 +45,9 @@ describe('marky', function () {
   })
 
   it('throws errors on unknown marks', () => {
-    marky.start('toto')
+    marky.mark('toto')
     return Promise.resolve().then(() => {
-      return marky.end('lala')
+      return marky.stop('lala')
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -64,7 +57,7 @@ describe('marky', function () {
 
   it('throws errors on empty mark starts', () => {
     return Promise.resolve().then(() => {
-      return marky.start()
+      return marky.mark()
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -74,7 +67,7 @@ describe('marky', function () {
 
   it('throws errors on empty mark ends', () => {
     return Promise.resolve().then(() => {
-      return marky.end()
+      return marky.stop()
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -83,22 +76,22 @@ describe('marky', function () {
   })
 
   it('records reasonable times', () => {
-    marky.start('baz')
+    marky.mark('baz')
     return sleep(1000).then(() => {
-      return marky.end()
+      return marky.stop('baz')
     }).then(res => {
       assertBetween(res.duration, 950, 2000)
     })
   })
 
   it('can re-use measurement names', () => {
-    marky.start('foobar')
+    marky.mark('foobar')
     return sleep(500).then(() => {
-      return marky.end()
+      return marky.stop('foobar')
     }).then(res1 => {
-      marky.start('foobar')
+      marky.mark('foobar')
       return sleep(1500).then(() => {
-        return marky.end()
+        return marky.stop('foobar')
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
@@ -107,12 +100,12 @@ describe('marky', function () {
   })
 
   it('can measure two directly subsequent measurements', () => {
-    marky.start('thing number one')
+    marky.mark('thing number one')
     return sleep(500).then(() => {
-      var res1 = marky.end()
-      marky.start('thing numero dos')
+      var res1 = marky.stop('thing number one')
+      marky.mark('thing numero dos')
       return sleep(1500).then(() => {
-        return marky.end()
+        return marky.stop('thing numero dos')
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
@@ -121,21 +114,21 @@ describe('marky', function () {
   })
 
   it('can do many measurements in parallel', () => {
-    marky.start('turtles')
+    marky.mark('turtles')
     return Promise.all([
-      sleep(5).then(() => marky.start('leonardo')),
-      sleep(10).then(() => marky.start('michelangelo')),
-      sleep(15).then(() => marky.start('donatello')),
-      sleep(20).then(() => marky.start('raphael'))
+      sleep(5).then(() => marky.mark('leonardo')),
+      sleep(10).then(() => marky.mark('michelangelo')),
+      sleep(15).then(() => marky.mark('donatello')),
+      sleep(20).then(() => marky.mark('raphael'))
     ]).then(() => {
       return Promise.all([
-        sleep(500).then(() => marky.end('leonardo')),
-        sleep(1000).then(() => marky.end('michelangelo')),
-        sleep(1500).then(() => marky.end('donatello')),
-        sleep(2000).then(() => marky.end('raphael'))
+        sleep(500).then(() => marky.stop('leonardo')),
+        sleep(1000).then(() => marky.stop('michelangelo')),
+        sleep(1500).then(() => marky.stop('donatello')),
+        sleep(2000).then(() => marky.stop('raphael'))
       ])
     }).then(res => {
-      var total = marky.end('turtles')
+      var total = marky.stop('turtles')
       assertBetween(res[0].duration, 400, 1100)
       assertBetween(res[1].duration, 900, 1600)
       assertBetween(res[2].duration, 1400, 2100)
