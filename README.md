@@ -1,4 +1,4 @@
-markymark
+marky
 ======
 
 JavaScript performance timer based on `performance.mark()` and `performance.measure()` (i.e. the
@@ -15,22 +15,22 @@ Quick start
 
 Install via npm:
 
-    npm install markymark
+    npm install marky
 
 Or as a script tag:
 
 ```html
-<script src="https://unpkg.com/markymark/dist/markymark.min.js"></script>
+<script src="https://unpkg.com/marky/dist/marky.min.js"></script>
 ```
 
 Then take some measurements:
 
 ```js
-var markymark = require('markymark');
+var marky = require('marky');
 
-markymark.start('expensive operation');
+marky.start('expensive operation');
 doExpensiveOperation();
-markymark.end().then(function (duration) {
+marky.end().then(function (duration) {
   console.log('took: ' + duration);
 });
 ```
@@ -59,26 +59,26 @@ var measurements = performance.getEntriesByType('measure');
 API
 ---
 
-`markymark.start()` begins recording, and `markymark.end()` finishes recording:
+`marky.start()` begins recording, and `marky.end()` finishes recording:
 
 ```js
-markymark.start('defendTheCastle');
+marky.start('defendTheCastle');
 defendTheCastle();
-markymark.end();
+marky.end();
 ```
 
 You can also provide a string to `end()` for more complex scenarios:
 
 ```js
 function defendTheCastle() {
-  markymark.start('defendTheCastle');
-  markymark.start('releaseTheHounds');
+  marky.start('defendTheCastle');
+  marky.start('releaseTheHounds');
   releaseTheHounds();
-  markymark.end();
-  markymark.start('armTheCannons');
+  marky.end();
+  marky.start('armTheCannons');
   armTheCannons();
-  markymark.end();
-  markymark.end('defendTheCastle');
+  marky.end();
+  marky.end('defendTheCastle');
 }
 ```
 
@@ -87,12 +87,12 @@ If you don't provide an argument to `end()`, it will use the name from the most 
 Asynchronous measurements
 ----
 
-`markymark.end()` returns a `Promise` for the measurement of the duration:
+`marky.end()` returns a `Promise` for the measurement of the duration:
 
 ```js
-markymark.start('manTheTorpedos');
+marky.start('manTheTorpedos');
 manTheTorpedos();
-markymark.end().then(function (duration) {
+marky.end().then(function (duration) {
   console.log(duration); // duration in milliseconds
 });
 ```
@@ -108,13 +108,13 @@ Markymark doesn't require ES6 syntax, but it does use `Promise` and `Map`. If yo
 you'll need a polyfill. Or you can use:
 
 ```js
-var markymark = require('markymark/with-polyfills');
+var marky = require('marky/with-polyfills');
 ```
 
 Or as a script tag:
 
 ```html
-<script src="https://unpkg.com/markymark/dist/markymark.with-polyfills.min.js"></script>
+<script src="https://unpkg.com/marky/dist/marky.with-polyfills.min.js"></script>
 ```
 
 Markymark is tested in the following browsers (with the Promise+Map polyfills):

@@ -1,7 +1,7 @@
 /* global it, describe */
 
 let assert = require('assert')
-let markymark = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
+let marky = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
 let Promise = require('native-or-lie')
 
 function sleep (ms) {
@@ -25,26 +25,26 @@ function assertBetween (num, num1, num2) {
   assertLte(num, num2)
 }
 
-describe('markymark', function () {
+describe('marky', function () {
   this.timeout(30000)
 
   it('does a basic mark', () => {
-    markymark.start('foo')
-    var res = markymark.end()
+    marky.start('foo')
+    var res = marky.end()
     assert(typeof res.duration === 'number')
     assertGte(res.duration, 0)
   })
 
   it('does a basic mark with end defined', () => {
-    markymark.start('bar')
-    var res = markymark.end('bar')
+    marky.start('bar')
+    var res = marky.end('bar')
     assert(typeof res.duration === 'number')
     assertGte(res.duration, 0)
   })
 
   it('does a basic mark with an entry result', () => {
-    markymark.start('bar')
-    var res = markymark.end('bar')
+    marky.start('bar')
+    var res = marky.end('bar')
     assert(typeof res.duration === 'number')
     assert.equal(res.entryType, 'measure')
     assert.equal(res.name, 'bar')
@@ -52,9 +52,9 @@ describe('markymark', function () {
   })
 
   it('throws errors on unknown marks', () => {
-    markymark.start('toto')
+    marky.start('toto')
     return Promise.resolve().then(() => {
-      return markymark.end('lala')
+      return marky.end('lala')
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -64,7 +64,7 @@ describe('markymark', function () {
 
   it('throws errors on empty mark starts', () => {
     return Promise.resolve().then(() => {
-      return markymark.start()
+      return marky.start()
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -74,7 +74,7 @@ describe('markymark', function () {
 
   it('throws errors on empty mark ends', () => {
     return Promise.resolve().then(() => {
-      return markymark.end()
+      return marky.end()
     }).then(() => {
       throw new Error('expected an error here')
     }, err => {
@@ -83,22 +83,22 @@ describe('markymark', function () {
   })
 
   it('records reasonable times', () => {
-    markymark.start('baz')
+    marky.start('baz')
     return sleep(1000).then(() => {
-      return markymark.end()
+      return marky.end()
     }).then(res => {
       assertBetween(res.duration, 950, 2000)
     })
   })
 
   it('can re-use measurement names', () => {
-    markymark.start('foobar')
+    marky.start('foobar')
     return sleep(500).then(() => {
-      return markymark.end()
+      return marky.end()
     }).then(res1 => {
-      markymark.start('foobar')
+      marky.start('foobar')
       return sleep(1500).then(() => {
-        return markymark.end()
+        return marky.end()
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
@@ -107,12 +107,12 @@ describe('markymark', function () {
   })
 
   it('can measure two directly subsequent measurements', () => {
-    markymark.start('thing number one')
+    marky.start('thing number one')
     return sleep(500).then(() => {
-      var res1 = markymark.end()
-      markymark.start('thing numero dos')
+      var res1 = marky.end()
+      marky.start('thing numero dos')
       return sleep(1500).then(() => {
-        return markymark.end()
+        return marky.end()
       }).then(res2 => {
         assertBetween(res1.duration, 450, 1400)
         assertBetween(res2.duration, 1450, 2400)
@@ -121,21 +121,21 @@ describe('markymark', function () {
   })
 
   it('can do many measurements in parallel', () => {
-    markymark.start('turtles')
+    marky.start('turtles')
     return Promise.all([
-      sleep(5).then(() => markymark.start('leonardo')),
-      sleep(10).then(() => markymark.start('michelangelo')),
-      sleep(15).then(() => markymark.start('donatello')),
-      sleep(20).then(() => markymark.start('raphael'))
+      sleep(5).then(() => marky.start('leonardo')),
+      sleep(10).then(() => marky.start('michelangelo')),
+      sleep(15).then(() => marky.start('donatello')),
+      sleep(20).then(() => marky.start('raphael'))
     ]).then(() => {
       return Promise.all([
-        sleep(500).then(() => markymark.end('leonardo')),
-        sleep(1000).then(() => markymark.end('michelangelo')),
-        sleep(1500).then(() => markymark.end('donatello')),
-        sleep(2000).then(() => markymark.end('raphael'))
+        sleep(500).then(() => marky.end('leonardo')),
+        sleep(1000).then(() => marky.end('michelangelo')),
+        sleep(1500).then(() => marky.end('donatello')),
+        sleep(2000).then(() => marky.end('raphael'))
       ])
     }).then(res => {
-      var total = markymark.end('turtles')
+      var total = marky.end('turtles')
       assertBetween(res[0].duration, 400, 1100)
       assertBetween(res[1].duration, 900, 1600)
       assertBetween(res[2].duration, 1400, 2100)

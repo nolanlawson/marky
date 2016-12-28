@@ -5,7 +5,7 @@ export default config => {
   return {
     entry: 'src/index.js',
     format: config.format,
-    moduleName: 'markymark',
+    moduleName: 'marky',
     dest: config.dest,
     plugins: [
       buble(),

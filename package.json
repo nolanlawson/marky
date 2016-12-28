@@ -1,17 +1,17 @@
 {
-  "name": "markymark",
+  "name": "marky",
   "version": "1.0.0",
-  "description": "Stopwatch based on performance.mark() and measure()",
-  "main": "lib/markymark.cjs.js",
-  "jsnext:main": "lib/markymark.es.js",
-  "module": "lib/markymark.es.js",
+  "description": "Performance timer based on performance.mark() and measure()",
+  "main": "lib/marky.cjs.js",
+  "jsnext:main": "lib/marky.es.js",
+  "module": "lib/marky.es.js",
   "scripts": {
     "clean": "rimraf lib dist && mkdirp lib dist",
     "rollup-cjs": "rollup -c config/rollup.config.cjs.js && rollup -c config/rollup.config.browser.cjs.js",
     "rollup-es": "rollup -c config/rollup.config.es.js && rollup -c config/rollup.config.browser.es.js",
     "rollup-iife": "rollup -c config/rollup.config.iife.js",
     "rollup": "npm-run-all --parallel rollup-cjs rollup-es rollup-iife",
-    "minify": "uglifyjs -mc < dist/markymark.js > dist/markymark.min.js",
+    "minify": "uglifyjs -mc < dist/marky.js > dist/marky.min.js",
     "prepublish": "npm run build",
     "build": "npm-run-all clean rollup minify",
     "test": "npm run rollup-cjs && mocha test/test.js",
@@ -57,9 +57,8 @@
     "dist"
   ],
   "browser": {
-    "./lib/markymark.cjs.js": "./lib/markymark.browser.cjs.js",
-    "./lib/markymark.with-polyfills.cjs.js": "./lib/markymark.browser.with-polyfills.cjs.js",
-    "./lib/markymark.es.js": "./lib/markymark.browser.es.js"
+    "./lib/marky.cjs.js": "./lib/marky.browser.cjs.js",
+    "./lib/marky.es.js": "./lib/marky.browser.es.js"
   },
   "standard": {
     "ignore": [
