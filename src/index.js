@@ -2,6 +2,7 @@
 
 import now from './now'
 import supportsMarkMeasure from './supportsMarkMeasure'
+import insertSorted from './insertSorted'
 
 function throwIfEmpty (name) {
   if (!name) {
@@ -11,6 +12,7 @@ function throwIfEmpty (name) {
 
 let mark
 let stop
+let getEntries
 
 if (supportsMarkMeasure) {
   mark = name => {
@@ -24,8 +26,10 @@ if (supportsMarkMeasure) {
     let entries = performance.getEntriesByName(name)
     return entries[entries.length - 1]
   }
+  getEntries = () => performance.getEntriesByType('measure')
 } else {
   let marks = {}
+  let entries = []
   mark = name => {
     let startTime = now()
     throwIfEmpty(name)
@@ -38,13 +42,19 @@ if (supportsMarkMeasure) {
     if (!startTime) {
       throw new Error(`no known mark: ${name}`)
     }
-    return {
+    let entry = {
       startTime,
       name,
       duration: endTime - startTime,
       entryType: 'measure'
     }
+    // per the spec this should be at least 150:
+    // https://www.w3.org/TR/resource-timing-1/#extensions-performance-interface
+    // we just have no limit, per Chrome and Edge's de-facto behavior
+    insertSorted(entries, entry, x => x.startTime)
+    return entry
   }
+  getEntries = () => entries
 }
 
-export { mark, stop }
+export { mark, stop, getEntries }

@@ -43,14 +43,8 @@ As well as Edge F12 Tools:
 
 ![Edge F12 screenshot](doc/edge.png)
 
-Plus, it records
-[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) that you can access through
-the standard [Performance API](https://developer.mozilla.org/en-US/docs/Web/API/Performance):
-
-```js
-// get all startTimes, names, and durations
-var measurements = performance.getEntriesByType('measure');
-```
+This is because `marky` adds standard
+[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) to the [Performance Timeline](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). In principle other browsers and analytics providers can use the same data.
 
 API
 ---
@@ -97,10 +91,41 @@ The entry will look something like:
 }
 ```
 
+You can get all entries using:
+
+```js
+var entries = marky.getEntries();
+```
+
+This provides a list of all measures ordered by `startTime`, e.g.:
+
+```json
+[
+  {
+    "entryType": "measure",
+    "startTime": 1974112,
+    "duration": 350,
+    "name": "numberOne"
+  },
+  {
+    "entryType": "measure",
+    "startTime": 1975108,
+    "duration": 300,
+    "name": "numberTwo"
+  },
+  {
+    "entryType": "measure",
+    "startTime": 1976127,
+    "duration": 250,
+    "name": "numberThree"
+  }
+]
+```
+
 Browser support
 ----
 
-Marky is tested in the following browsers/environments:
+`marky` is tested in the following browsers/environments:
 
 * IE 9+
 * Safari 8+
@@ -111,8 +136,21 @@ Marky is tested in the following browsers/environments:
 * Edge
 * Node 4+
 
-In Node and [browsers that don't support the User Timing API](http://caniuse.com/#feat=user-timing), `marky.stop()` will
-still return an object with a `duration` and a `startTime`, but you won't be able to find it via `performance.getEntries()`.
+Per [the spec](https://www.w3.org/TR/resource-timing-1/#extensions-performance-interface), browsers only need to hold a minimum
+of 150 entries in their Performance Timeline buffer. Notably Firefox throttles their buffer to 150, which for `marky`
+means you can get a maximum of 50 entries from `marky.getEntries()` (because `marky` creates two marks and a measure).
+
+If you need to get more than 50 entries from `marky.getEntries()`, you can do:
+
+```js
+if (typeof performance !== 'undefined' && performance.setResourceTimingBufferSize) {
+  performance.setResourceTimingBufferSize(10000); // or however many you need
+}
+```
+
+In Node and [browsers that don't support the User Timing API](http://caniuse.com/#feat=user-timing),
+`marky` follows the behavior of Edge and Chrome, and does not limit the number of entries. `marky.stop()` and 
+`marky.getEntries()` will return pseudo-`PerformanceEntry` objects.
 
 Credits
 ----

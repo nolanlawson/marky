@@ -1,8 +1,12 @@
-/* global it, describe */
+/* global it, describe, performance */
 
 var assert = require('assert')
 var marky = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
 var Promise = require('native-or-lie')
+
+if (typeof performance !== 'undefined' && performance.setResourceTimingBufferSize) {
+  performance.setResourceTimingBufferSize(10000) // increase firefox's default limit
+}
 
 function sleep (ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -33,6 +37,51 @@ function assertBetween (num, num1, num2) {
 
 describe('marky', function () {
   this.timeout(30000)
+
+  it('collects entries ordered by startTime', () => {
+    marky.mark('charmander')
+    return sleep(50)
+      .then(() => marky.mark('squirtle'))
+      .then(() => sleep(50))
+      .then(() => marky.mark('bulbasaur'))
+      .then(() => sleep(200))
+      .then(() => {
+        marky.stop('bulbasaur')
+        marky.stop('squirtle')
+        marky.stop('charmander')
+        var entries = marky.getEntries()
+        assert.deepEqual(
+        entries.map(x => x.name),
+        ['charmander', 'squirtle', 'bulbasaur']
+      )
+        entries.forEach(entry => {
+          assert(typeof entry.startTime === 'number')
+          assert(typeof entry.duration === 'number')
+          assert.equal(entry.entryType, 'measure')
+        })
+      })
+  })
+
+  it('collects entries ordered by startTime 2', () => {
+    marky.mark('pikachu')
+    return sleep(50).then(() => marky.mark('pidgey'))
+      .then(() => sleep(50)).then(() => marky.mark('jigglypuff'))
+      .then(() => sleep(200)).then(() => {
+        marky.stop('pidgey')
+        marky.stop('pikachu')
+        marky.stop('jigglypuff')
+        var entries = marky.getEntries()
+        assert.deepEqual(entries.map(x => x.name), [
+          'charmander', 'squirtle', 'bulbasaur',
+          'pikachu', 'pidgey', 'jigglypuff'
+        ])
+        entries.forEach(entry => {
+          assert(typeof entry.startTime === 'number')
+          assert(typeof entry.duration === 'number')
+          assert.equal(entry.entryType, 'measure')
+        })
+      })
+  })
 
   it('does a basic mark with end defined', () => {
     marky.mark('bar')
