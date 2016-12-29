@@ -1,8 +1,6 @@
 /* global performance */
 
 import now from './now'
-import supportsMarkMeasure from './supportsMarkMeasure'
-import insertSorted from './insertSorted'
 
 function throwIfEmpty (name) {
   if (!name) {
@@ -10,11 +8,28 @@ function throwIfEmpty (name) {
   }
 }
 
+// simple binary sort insertion
+function insertSorted (arr, item) {
+  let low = 0
+  let high = arr.length
+  let mid
+  while (low < high) {
+    mid = (low + high) >>> 1 // like (num / 2) but faster
+    if (arr[mid].startTime < item.startTime) {
+      low = mid + 1
+    } else {
+      high = mid
+    }
+  }
+  arr.splice(low, 0, item)
+}
+
 let mark
 let stop
 let getEntries
 
-if (supportsMarkMeasure) {
+if (typeof performance !== 'undefined' &&
+    performance.mark && performance.measure) {
   mark = name => {
     throwIfEmpty(name)
     performance.mark(`start ${name}`)
@@ -51,7 +66,7 @@ if (supportsMarkMeasure) {
     // per the spec this should be at least 150:
     // https://www.w3.org/TR/resource-timing-1/#extensions-performance-interface
     // we just have no limit, per Chrome and Edge's de-facto behavior
-    insertSorted(entries, entry, x => x.startTime)
+    insertSorted(entries, entry)
     return entry
   }
   getEntries = () => entries
