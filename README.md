@@ -44,7 +44,7 @@ As well as Edge F12 Tools:
 ![Edge F12 screenshot](doc/edge.png)
 
 This is because `marky` adds standard
-[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) to the [Performance Timeline](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). In principle other browsers and analytics providers can use the same data.
+[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) to the [Performance Timeline](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline).
 
 API
 ---
