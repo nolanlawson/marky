@@ -152,6 +152,11 @@ In Node and [browsers that don't support the User Timing API](http://caniuse.com
 `marky` follows the behavior of Edge and Chrome, and does not limit the number of entries. `marky.stop()` and 
 `marky.getEntries()` will return pseudo-`PerformanceEntry` objects.
 
+See also
+---
+
+- [appmetrics.js](https://github.com/ebidel/appmetrics.js) – a library on top of `mark()`/`measure()` which reports to Google Analytics.
+
 Credits
 ----
 
