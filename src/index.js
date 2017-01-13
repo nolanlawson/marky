@@ -1,5 +1,4 @@
-/* global performance */
-
+import perf from './performance'
 import now from './now'
 
 function throwIfEmpty (name) {
@@ -28,20 +27,19 @@ let mark
 let stop
 let getEntries
 
-if (typeof performance !== 'undefined' &&
-    performance.mark && performance.measure) {
+if (perf && perf.mark && perf.measure) {
   mark = name => {
     throwIfEmpty(name)
-    performance.mark(`start ${name}`)
+    perf.mark(`start ${name}`)
   }
   stop = name => {
     throwIfEmpty(name)
-    performance.mark(`end ${name}`)
-    performance.measure(name, `start ${name}`, `end ${name}`)
-    let entries = performance.getEntriesByName(name)
+    perf.mark(`end ${name}`)
+    perf.measure(name, `start ${name}`, `end ${name}`)
+    let entries = perf.getEntriesByName(name)
     return entries[entries.length - 1]
   }
-  getEntries = () => performance.getEntriesByType('measure')
+  getEntries = () => perf.getEntriesByType('measure')
 } else {
   let marks = {}
   let entries = []

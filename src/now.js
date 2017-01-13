@@ -1,10 +1,9 @@
-/* global performance */
-
+import perf from './performance'
 let now
 
 if (process.browser) {
-  if (typeof performance !== 'undefined' && performance.now) {
-    now = () => performance.now()
+  if (perf && perf.now) {
+    now = () => perf.now()
   } else {
     now = () => Date.now()
   }
