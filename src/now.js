@@ -1,13 +1,8 @@
 import perf from './performance'
-let now
 
-if (process.browser) {
-  if (perf && perf.now) {
-    now = () => perf.now()
-  } else {
-    now = () => Date.now()
-  }
-} else {
+let nowForNode
+
+if (!process.browser) {
   // implementation borrowed from:
   // https://github.com/myrne/performance-now/blob/6223a0d544bae1d5578dd7431f78b4ec7d65b15c/src/performance-now.coffee
   let hrtime = process.hrtime
@@ -16,7 +11,9 @@ if (process.browser) {
     return hr[0] * 1e9 + hr[1]
   }
   let loadTime = getNanoSeconds()
-  now = () => ((getNanoSeconds() - loadTime) / 1e6)
+  nowForNode = () => ((getNanoSeconds() - loadTime) / 1e6)
 }
 
-export default now
+export default process.browser ?
+  perf && perf.now ? () => perf.now() : () => Date.now() :
+  nowForNode

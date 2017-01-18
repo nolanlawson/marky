@@ -44,13 +44,13 @@ if (perf && perf.mark && perf.measure) {
   let marks = {}
   let entries = []
   mark = name => {
-    let startTime = now()
     throwIfEmpty(name)
+    let startTime = now()
     marks['$' + name] = startTime
   }
   stop = name => {
-    let endTime = now()
     throwIfEmpty(name)
+    let endTime = now()
     let startTime = marks['$' + name]
     if (!startTime) {
       throw new Error(`no known mark: ${name}`)
