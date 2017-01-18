@@ -14,6 +14,6 @@ if (!process.browser) {
   nowForNode = () => ((getNanoSeconds() - loadTime) / 1e6)
 }
 
-export default process.browser ?
-  perf && perf.now ? () => perf.now() : () => Date.now() :
-  nowForNode
+export default process.browser
+  ? perf && perf.now ? () => perf.now() : () => Date.now()
+  : nowForNode
