@@ -38,6 +38,25 @@ function assertBetween (num, num1, num2) {
 describe('marky', function () {
   this.timeout(30000)
 
+  it('clears measures (entries)', () => {
+    marky.mark('pikachu')
+    marky.mark('pidgey')
+    marky.mark('pikachu')
+    marky.stop('pikachu')
+    marky.stop('pidgey')
+    marky.stop('pikachu')
+
+    assert.equal(marky.getEntries().length, 3)
+    marky.clear()
+    assert.equal(marky.getEntries().length, 0)
+
+    marky.mark('gengar')
+    marky.stop('gengar')
+    assert.equal(marky.getEntries().length, 1)
+    assert.equal(marky.getEntries()[0].name, 'gengar')
+    marky.clear()
+  })
+
   it('collects entries ordered by startTime', () => {
     marky.mark('charmander')
     return sleep(50)
@@ -81,18 +100,6 @@ describe('marky', function () {
           assert.equal(entry.entryType, 'measure')
         })
       })
-  })
-
-  it('clears measures (entries)', () => {
-    marky.mark('pikachu')
-    marky.mark('pidgey')
-    marky.mark('pikachu')
-    marky.stop('pikachu')
-    marky.stop('pidgey')
-    marky.stop('pikachu')
-
-    marky.clearMeasures()
-    assert.equal(marky.getEntries().length, 0)
   })
 
   it('does a basic mark with end defined', () => {

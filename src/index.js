@@ -26,9 +26,9 @@ function insertSorted (arr, item) {
 let mark
 let stop
 let getEntries
-let clearMeasures
+let clear
 
-if (perf && perf.mark && perf.measure && perf.clearMeasures) {
+if (perf && perf.mark) {
   mark = name => {
     throwIfEmpty(name)
     perf.mark(`start ${name}`)
@@ -41,7 +41,10 @@ if (perf && perf.mark && perf.measure && perf.clearMeasures) {
     return entries[entries.length - 1]
   }
   getEntries = () => perf.getEntriesByType('measure')
-  clearMeasures = () => perf.clearMeasures()
+  clear = () => {
+    perf.clearMarks()
+    perf.clearMeasures()
+  }
 } else {
   let marks = {}
   let entries = []
@@ -70,7 +73,7 @@ if (perf && perf.mark && perf.measure && perf.clearMeasures) {
     return entry
   }
   getEntries = () => entries
-  clearMeasures = () => (entries = [])
+  clear = () => { entries = [] }
 }
 
-export { mark, stop, getEntries, clearMeasures }
+export { mark, stop, getEntries, clear }

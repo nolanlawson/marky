@@ -122,6 +122,14 @@ This provides a list of all measures ordered by `startTime`, e.g.:
 ]
 ```
 
+You can also clear the entries using `marky.clear():`
+
+```js
+marky.clear()
+```
+
+After this, `marky.getEntries()` will return an empty list. (If the User Timing API is supported, this will delete all the `mark` and `measure` entries from the timeline.)
+
 Browser support
 ----
 
