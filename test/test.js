@@ -83,6 +83,18 @@ describe('marky', function () {
       })
   })
 
+  it('clears measures (entries)', () => {
+    marky.mark('pikachu')
+    marky.mark('pidgey')
+    marky.mark('pikachu')
+    marky.stop('pikachu')
+    marky.stop('pidgey')
+    marky.stop('pikachu')
+
+    marky.clearMeasures()
+    assert.equal(marky.getEntries().length, 0)
+  })
+
   it('does a basic mark with end defined', () => {
     marky.mark('bar')
     var res = marky.stop('bar')
