@@ -70,7 +70,7 @@ if (perf && perf.mark && perf.measure && perf.clearMeasures) {
     return entry
   }
   getEntries = () => entries
-  clearMeasures = () => entries = []
+  clearMeasures = () => (entries = [])
 }
 
 export { mark, stop, getEntries, clearMeasures }
