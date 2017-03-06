@@ -12,7 +12,7 @@ Quick start
 
 Install via npm:
 
-    npm install marky
+    npm install marky --save
 
 Or as a script tag:
 
