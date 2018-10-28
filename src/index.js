@@ -73,7 +73,10 @@ if (perf && perf.mark) {
     return entry
   }
   getEntries = () => entries
-  clear = () => { entries = [] }
+  clear = () => {
+    marks = {}
+    entries = []
+  }
 }
 
 export { mark, stop, getEntries, clear }
