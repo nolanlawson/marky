@@ -4,7 +4,7 @@ browserify:
       name: babelify
       presets: es2015
   - transform: envify
-concurrency: 2
+concurrency: 1
 tunnel:
   type: ngrok
 browsers:
