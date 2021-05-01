@@ -1,6 +1,6 @@
 {
   "name": "marky",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Performance timer based on performance.mark() and measure()",
   "main": "lib/marky.cjs.js",
   "jsnext:main": "lib/marky.es.js",
