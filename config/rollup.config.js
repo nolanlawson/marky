@@ -7,7 +7,8 @@ export default config => {
     output: {
       format: config.format,
       file: config.dest,
-      name: 'marky'
+      name: 'marky',
+      esModule: !config.skipEsModule
     },
     plugins: [
       buble(),
