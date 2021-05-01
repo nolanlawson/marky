@@ -27,8 +27,8 @@ jobs:
           name: Node tests
           command: yarn test
       - run:
-          name: Code coverage tests
-          command: yarn coverage
+          name: Browser tests
+          command: yarn test-browser
       - save_cache:
           name: Save yarn cache
           key: yarn-v1-{{ checksum "yarn.lock" }}
