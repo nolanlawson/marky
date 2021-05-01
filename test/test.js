@@ -2,7 +2,6 @@
 
 var assert = require('assert')
 var marky = require('..')
-var Promise = require('native-or-lie')
 
 if (typeof performance !== 'undefined' && performance.setResourceTimingBufferSize) {
   performance.setResourceTimingBufferSize(10000) // increase firefox's default limit
