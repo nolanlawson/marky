@@ -1,7 +1,7 @@
 /* global it, describe, performance */
 
 var assert = require('assert')
-var marky = process.env.NODE_ENV === 'development' ? require('../src/index') : require('../')
+var marky = require('..')
 var Promise = require('native-or-lie')
 
 if (typeof performance !== 'undefined' && performance.setResourceTimingBufferSize) {
