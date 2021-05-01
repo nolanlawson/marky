@@ -145,7 +145,8 @@ Browser support
 * Node 4+
 
 Per [the spec](https://www.w3.org/TR/resource-timing-1/#extensions-performance-interface), browsers only need to hold a minimum
-of 150 entries in their Performance Timeline buffer. Notably Firefox throttles their buffer to 150, which for `marky`
+of 150 entries in their Performance Timeline buffer. [In older versions of Firefox](https://bugzilla.mozilla.org/show_bug.cgi?id=1331135), the buffer
+is throttled to 150, which for `marky`
 means you can get a maximum of 50 entries from `marky.getEntries()` (because `marky` creates two marks and a measure).
 
 If you need to get more than 50 entries from `marky.getEntries()`, you can do:
