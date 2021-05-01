@@ -133,7 +133,7 @@ After this, `marky.getEntries()` will return an empty list. (If the User Timing 
 Browser support
 ----
 
-`marky` is tested in the following browsers/environments:
+`marky` has been tested in the following browsers/environments:
 
 * IE 9+
 * Safari 8+
