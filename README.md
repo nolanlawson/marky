@@ -1,4 +1,4 @@
-marky [![Build Status](https://travis-ci.org/nolanlawson/marky.svg?branch=master)](https://travis-ci.org/nolanlawson/marky)
+marky 
 ======
 
 JavaScript timer based on `performance.mark()` and `performance.measure()`, providing [high-resolution
