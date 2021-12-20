@@ -44,7 +44,7 @@ As well as Edge F12 Tools:
 ![Edge F12 screenshot](doc/edge.png)
 
 This is because `marky` adds standard
-[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) to the [Performance Timeline](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). Tools like [WebPageTest](http://blog.patrickmeenan.com/2013/07/measuring-performance-of-user-experience.html) and [Windows Performance Analyzer](https://blogs.windows.com/msedgedev/2016/05/11/top-down-analysis-wpt/) also surface them, and you can even [send them to your analytics provider](https://codelabs.developers.google.com/codelabs/performance-analytics/index.html).
+[PerformanceEntries](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceEntry) to the [Performance Timeline](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). Tools like [WebPageTest](http://blog.patrickmeenan.com/2013/07/measuring-performance-of-user-experience.html) and [Windows Performance Analyzer](https://blogs.windows.com/msedgedev/2016/05/11/top-down-analysis-wpt/) also surface them, and you can even [send them to your analytics provider](https://github.com/googlecodelabs/performance-analytics).
 
 API
 ---
