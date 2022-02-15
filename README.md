@@ -1,4 +1,4 @@
-marky [![Build status](https://circleci.com/gh/nolanlawson/marky.svg?style=svg)](https://app.circleci.com/pipelines/gh/nolanlawson/marky)
+marky
 ======
 
 JavaScript timer based on `performance.mark()` and `performance.measure()`, providing [high-resolution
