@@ -10,4 +10,4 @@ function safeRequire (mod) {
 
 export default process.browser
   ? (typeof performance !== 'undefined' && performance)
-  : safeRequire('perf_hooks')
+  : (typeof performance !== 'undefined' ? performance : safeRequire('perf_hooks'))
