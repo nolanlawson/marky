@@ -39,6 +39,8 @@ module.exports = function (config) {
     browsers: [
       'ChromeHeadless',
       'FirefoxHeadless'
-    ]
+    ],
+
+    concurrency: 1
   })
 }
