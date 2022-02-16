@@ -43,7 +43,7 @@ if (
     throwIfEmpty(name)
     perf.mark(`end ${name}`)
     perf.measure(name, `start ${name}`, `end ${name}`)
-    let entries = perf.getEntriesByName(name)
+    const entries = perf.getEntriesByName(name)
     return entries[entries.length - 1]
   }
   getEntries = () => perf.getEntriesByType('measure')
@@ -56,17 +56,17 @@ if (
   let entries = []
   mark = name => {
     throwIfEmpty(name)
-    let startTime = now()
+    const startTime = now()
     marks['$' + name] = startTime
   }
   stop = name => {
     throwIfEmpty(name)
-    let endTime = now()
-    let startTime = marks['$' + name]
+    const endTime = now()
+    const startTime = marks['$' + name]
     if (!startTime) {
       throw new Error(`no known mark: ${name}`)
     }
-    let entry = {
+    const entry = {
       startTime,
       name,
       duration: endTime - startTime,

@@ -12,7 +12,10 @@ export default config => {
     },
     plugins: [
       buble(),
-      replace({'process.browser': JSON.stringify(!!config.browser)})
+      replace({
+        preventAssignment: true,
+        'process.browser': JSON.stringify(!!config.browser)
+      })
     ]
   }
 }

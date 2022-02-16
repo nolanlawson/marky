@@ -1,7 +1,7 @@
 /* global it, describe, performance */
 
-var assert = require('assert')
-var marky = require('..')
+const assert = require('assert')
+const marky = require('..')
 
 if (typeof performance !== 'undefined' && performance.setResourceTimingBufferSize) {
   performance.setResourceTimingBufferSize(10000) // increase firefox's default limit
@@ -67,11 +67,11 @@ describe('marky', function () {
         marky.stop('bulbasaur')
         marky.stop('squirtle')
         marky.stop('charmander')
-        var entries = marky.getEntries()
+        const entries = marky.getEntries()
         assert.deepEqual(
-        entries.map(x => x.name),
-        ['charmander', 'squirtle', 'bulbasaur']
-      )
+          entries.map(x => x.name),
+          ['charmander', 'squirtle', 'bulbasaur']
+        )
         entries.forEach(entry => {
           assert(typeof entry.startTime === 'number')
           assert(typeof entry.duration === 'number')
@@ -88,7 +88,7 @@ describe('marky', function () {
         marky.stop('pidgey')
         marky.stop('pikachu')
         marky.stop('jigglypuff')
-        var entries = marky.getEntries()
+        const entries = marky.getEntries()
         assert.deepEqual(entries.map(x => x.name), [
           'charmander', 'squirtle', 'bulbasaur',
           'pikachu', 'pidgey', 'jigglypuff'
@@ -103,14 +103,14 @@ describe('marky', function () {
 
   it('does a basic mark with end defined', () => {
     marky.mark('bar')
-    var res = marky.stop('bar')
+    const res = marky.stop('bar')
     assert(typeof res.duration === 'number')
     assertGte(res.duration, 0)
   })
 
   it('does a basic mark with an entry result', () => {
     marky.mark('bar')
-    var res = marky.stop('bar')
+    const res = marky.stop('bar')
     assert(typeof res.duration === 'number')
     assert.equal(res.entryType, 'measure')
     assert.equal(res.name, 'bar')
@@ -179,7 +179,7 @@ describe('marky', function () {
       marky.mark('ni')
       return sleep(500)
     }).then(() => {
-      var res1 = marky.stop('ichi')
+      const res1 = marky.stop('ichi')
       return sleep(1000).then(() => {
         return marky.stop('ni')
       }).then(res2 => {
@@ -193,7 +193,7 @@ describe('marky', function () {
   it('can measure two directly subsequent measurements', () => {
     marky.mark('thing number one')
     return sleep(500).then(() => {
-      var res1 = marky.stop('thing number one')
+      const res1 = marky.stop('thing number one')
       marky.mark('thing numero dos')
       return sleep(1500).then(() => {
         return marky.stop('thing numero dos')
@@ -220,7 +220,7 @@ describe('marky', function () {
         sleep(2000).then(() => marky.stop('raphael'))
       ])
     }).then(res => {
-      var total = marky.stop('turtles')
+      const total = marky.stop('turtles')
       assertBetween(res[0].duration, 400, 1100)
       assertBetween(res[1].duration, 900, 1600)
       assertBetween(res[2].duration, 1400, 2100)
