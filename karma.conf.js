@@ -10,6 +10,7 @@ module.exports = function (config) {
     ],
 
     files: [
+      'test/setup.js',
       'test/test.js'
     ],
 
@@ -36,9 +37,6 @@ module.exports = function (config) {
 
     browsers: [
       'ChromeHeadless'
-    ],
-    ...(process.env.COVERAGE ? {
-      reporters: ['coverage']
-    } : null)
+    ]
   })
 }
