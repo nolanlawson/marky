@@ -42,7 +42,12 @@ if (
   stop = name => {
     throwIfEmpty(name)
     perf.mark(`end ${name}`)
-    perf.measure(name, `start ${name}`, `end ${name}`)
+    const measure = perf.measure(name, `start ${name}`, `end ${name}`)
+    if (measure) {
+      // return value from performance.measure not supported in all browsers
+      // https://developer.mozilla.org/en-US/docs/Web/API/Performance/measure#browser_compatibility
+      return measure
+    }
     const entries = perf.getEntriesByName(name)
     return entries[entries.length - 1]
   }
