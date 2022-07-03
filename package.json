@@ -73,7 +73,7 @@
   },
   "homepage": "https://github.com/nolanlawson/marky#readme",
   "volta": {
-    "node": "16.14.0",
-    "yarn": "1.22.17"
+    "node": "16.15.1",
+    "yarn": "1.22.19"
   }
 }
