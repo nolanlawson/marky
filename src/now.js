@@ -1,6 +1,6 @@
 import perf from './performance'
 
-let nowForNode
+let nowPolyfillForNode
 
 if (!process.browser) {
   // implementation borrowed from:
@@ -11,9 +11,9 @@ if (!process.browser) {
     return hr[0] * 1e9 + hr[1]
   }
   const loadTime = getNanoSeconds()
-  nowForNode = () => ((getNanoSeconds() - loadTime) / 1e6)
+  nowPolyfillForNode = () => ((getNanoSeconds() - loadTime) / 1e6)
 }
 
-export default process.browser
-  ? perf && perf.now ? () => perf.now() : () => Date.now()
-  : nowForNode
+export default perf && perf.now
+  ? () => perf.now()
+  : process.browser ? () => Date.now() : nowPolyfillForNode
