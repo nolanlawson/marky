@@ -28,13 +28,7 @@ let stop
 let getEntries
 let clear
 
-if (
-  perf &&
-  perf.mark &&
-  perf.getEntriesByName &&
-  perf.getEntriesByType &&
-  perf.clearMeasures
-) {
+if (perf) {
   mark = name => {
     throwIfEmpty(name)
     perf.mark(`start ${name}`)
