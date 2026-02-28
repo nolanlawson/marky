@@ -12,6 +12,6 @@ jobs:
         with:
           node-version: '16'
           cache: 'pnpm'
-      - run: pnpm --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
       - run: pnpm lint
       - run: pnpm test-browser
