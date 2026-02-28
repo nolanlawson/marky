@@ -7,10 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: corepack enable
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
-          cache: 'yarn'
-      - run: yarn --frozen-lockfile
-      - run: yarn lint
-      - run: yarn test-browser
+          cache: 'pnpm'
+      - run: pnpm --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test-browser

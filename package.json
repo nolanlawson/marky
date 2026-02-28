@@ -74,9 +74,5 @@
     "url": "https://github.com/nolanlawson/marky/issues"
   },
   "homepage": "https://github.com/nolanlawson/marky#readme",
-  "volta": {
-    "node": "16.15.1",
-    "yarn": "1.22.19"
-  },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }
